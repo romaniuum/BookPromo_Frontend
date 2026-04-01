@@ -1,0 +1,264 @@
+.wrapper {
+  padding: 20px 0;
+  margin-bottom: 24px;
+  border-bottom: 1px solid #f0f0f0;
+}
+
+.loginHint {
+  margin: 0;
+  color: #595959;
+  font-size: 14px;
+}
+
+.loginHint a {
+  color: #1890ff;
+  cursor: pointer;
+}
+
+.loginHint a:hover {
+  text-decoration: underline;
+}
+
+.title {
+  font-size: 16px;
+  font-weight: 600;
+  color: #262626;
+  margin: 0 0 16px !important;
+}
+
+.ratingRow {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 12px;
+}
+
+.label {
+  font-size: 14px;
+  color: #595959;
+}
+
+.rate {
+  font-size: 20px;
+}
+
+.rate .ant-rate-star {
+  margin-inline-end: 4px;
+}
+
+.textarea {
+  margin-bottom: 12px;
+  height: 100px !important;
+  min-height: 100px !important;
+  resize: none;
+}
+
+.footer {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 12px;
+  margin-top: 20px;
+}
+
+.checkbox {
+  font-size: 14px;
+}
+
+.footer .ant-btn {
+  cursor: pointer;
+}
+
+.userReviewCard {
+  border: 1px solid #f0f0f0;
+  border-radius: 8px;
+  padding: 16px;
+  background: #fafafa;
+}
+
+.userReviewHead {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 12px;
+}
+
+.userReviewHeadMore {
+  margin-left: auto;
+  flex-shrink: 0;
+}
+
+.userReviewMoreBtn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 32px;
+  height: 32px;
+  padding: 0;
+  font-size: 18px;
+  color: #595959;
+  background: none !important;
+  border: none !important;
+  box-shadow: none !important;
+  border-radius: 6px;
+  cursor: pointer;
+}
+
+.userReviewMoreBtn:hover {
+  color: #262626;
+  background: transparent !important;
+  border: none !important;
+  box-shadow: none !important;
+}
+
+.userReviewMoreIcon {
+  font-size: 18px;
+}
+
+.userReviewAvatar {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  flex-shrink: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #fff;
+  font-size: 16px;
+  font-weight: 600;
+}
+
+.userReviewMeta {
+  flex: 1;
+  min-width: 0;
+}
+
+.userReviewAuthorRow {
+  display: flex;
+  align-items: baseline;
+  gap: 6px;
+  flex-wrap: wrap;
+}
+
+.userReviewAuthor {
+  font-size: 15px;
+  font-weight: 600;
+  color: #262626;
+}
+
+.userReviewSharesLabel {
+  font-size: 14px;
+  color: #8c8c8c;
+  font-weight: 400;
+}
+
+.userReviewTime {
+  font-size: 12px;
+  color: #8c8c8c;
+  margin: 4px 0 0 !important;
+}
+
+.userReviewStars {
+  font-size: 14px;
+}
+
+.userReviewStars .ant-rate-star {
+  margin-inline-end: 2px;
+}
+
+.userReviewComment {
+  margin: 0 0 12px;
+  font-size: 14px;
+  line-height: 1.6;
+  color: #262626;
+  white-space: pre-wrap;
+}
+
+.userReviewCommentPlaceholder {
+  margin: 0 0 12px;
+  font-size: 14px;
+  color: #8c8c8c;
+  font-style: italic;
+}
+
+.userReviewEngagement {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  margin-bottom: 10px;
+  font-size: 12px;
+  color: #8c8c8c;
+}
+
+.userReviewEngagementDot {
+  margin: 0 6px;
+  color: #bfbfbf;
+}
+
+.userReviewLikes,
+.userReviewCommentsCount {
+  color: #8c8c8c;
+}
+
+.userReviewActionsRow {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 4px;
+  margin-bottom: 12px;
+}
+
+.userReviewAction {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  font-size: 12px;
+  color: #595959;
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 6px 8px;
+  border-radius: 4px;
+}
+
+.userReviewAction:hover {
+  color: #262626;
+  background: #f5f5f5;
+}
+
+.userReviewActionLiked {
+  color: #ff4d4f;
+}
+
+.userReviewActionLiked .userReviewActionIcon {
+  color: #ff4d4f;
+}
+
+.userReviewActionIcon {
+  margin-right: 2px;
+  font-size: 14px;
+}
+
+.userReviewEditTextarea {
+  margin-bottom: 10px;
+  height: 100px !important;
+  min-height: 100px !important;
+  resize: none;
+}
+
+.userReviewEditCheckbox {
+  display: flex;
+  margin-bottom: 12px;
+  font-size: 13px;
+}
+
+.userReviewActions {
+  display: flex;
+  gap: 8px;
+}
+
+.userReviewBtn {
+  cursor: pointer;
+}

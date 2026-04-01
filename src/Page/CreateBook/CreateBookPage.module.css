@@ -1,0 +1,155 @@
+.page {
+  padding: 16px 16px 24px;
+  max-width: 640px;
+  margin: 0 auto;
+}
+
+@media (min-width: 768px) {
+  .page {
+    padding: 24px 24px 48px;
+  }
+}
+
+.title {
+  margin-bottom: 20px !important;
+  color: #262626;
+  font-size: 20px !important;
+}
+
+@media (min-width: 768px) {
+  .title {
+    margin-bottom: 24px !important;
+    font-size: 24px !important;
+  }
+}
+
+.form {
+  margin-top: 16px;
+}
+
+.coverSource {
+  display: block;
+}
+
+.coverSource {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.coverSource .ant-radio-wrapper {
+  display: block;
+  margin-bottom: 4px;
+}
+
+.coverUpload {
+  margin-top: 8px;
+}
+
+.pdfUploadWrap {
+  width: 100%;
+}
+
+.pdfUploadWrap :global(.ant-upload-wrapper) {
+  width: 100%;
+}
+
+.pdfUploadWrap :global(.ant-upload) {
+  width: 100% !important;
+  display: block !important;
+}
+
+.pdfUploadWrap :global(.ant-upload .ant-empty) {
+  width: 100%;
+  padding: 32px 24px;
+  border: 1px dashed #d9d9d9;
+  border-radius: 8px;
+  background: #fafafa;
+}
+
+.coverFileName {
+  display: inline-block;
+  margin-left: 12px;
+  color: #666;
+  font-size: 13px;
+}
+
+.aiBlock {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  margin-top: 8px;
+}
+
+.aiHint {
+  font-size: 12px;
+  color: #8c8c8c;
+}
+
+.aiPreview {
+  max-width: 200px;
+  max-height: 300px;
+  object-fit: contain;
+  border-radius: 4px;
+  border: 1px solid #f0f0f0;
+}
+
+.textUpload {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.actions {
+  display: flex;
+  gap: 12px;
+  flex-wrap: wrap;
+}
+
+@media (max-width: 480px) {
+  .actions {
+    flex-direction: column;
+  }
+
+  .actions .ant-btn {
+    width: 100%;
+    justify-content: center;
+  }
+}
+
+
+.gostResults :global(.ant-list-item) {
+  border-radius: 4px;
+  padding: 8px 12px !important;
+}
+
+.gostOk {
+  background: #f6ffed;
+}
+
+.gostFail {
+  background: #fff2f0;
+}
+
+.gostSkipped {
+  background: #fffbe6;
+}
+
+.gostTable {
+  width: 100%;
+  font-size: 12px;
+  border-collapse: collapse;
+  margin-top: 8px;
+}
+
+.gostTable th,
+.gostTable td {
+  padding: 4px 8px;
+  text-align: left;
+  border: 1px solid #f0f0f0;
+}
+
+.gostTable th {
+  background: #fafafa;
+  font-weight: 600;
+}

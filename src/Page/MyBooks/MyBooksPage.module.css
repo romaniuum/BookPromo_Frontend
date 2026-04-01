@@ -1,0 +1,97 @@
+.page {
+  padding: 16px 16px 24px;
+}
+
+@media (min-width: 768px) {
+  .page {
+    padding: 24px 24px 48px;
+  }
+}
+
+.title {
+  margin-bottom: 8px !important;
+  color: #262626;
+  font-size: 20px !important;
+}
+
+@media (min-width: 768px) {
+  .title {
+    font-size: 24px !important;
+  }
+}
+
+.subtitle {
+  margin: 0 0 20px;
+  color: #8c8c8c;
+  font-size: 14px;
+}
+
+.grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 16px;
+}
+
+@media (min-width: 560px) {
+  .grid {
+    gap: 20px;
+  }
+}
+
+@media (min-width: 768px) {
+  .grid {
+    grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
+    gap: 24px;
+  }
+}
+
+@media (max-width: 400px) {
+  .grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+.cardWrap {
+  display: flex;
+  flex-direction: column;
+}
+
+.card {
+  display: flex;
+  flex-direction: column;
+  text-decoration: none;
+  color: inherit;
+  flex: 1;
+}
+
+.cover {
+  width: 100%;
+  aspect-ratio: 2/3;
+  background: #f5f5f5;
+  border-radius: 4px;
+  margin-bottom: 12px;
+  object-fit: cover;
+}
+
+.cardTitle {
+  font-weight: 500;
+  color: #262626;
+}
+
+.cardAuthor {
+  font-size: 13px;
+  color: #8c8c8c;
+}
+
+.cardActions {
+  display: flex;
+  gap: 8px;
+  margin-top: 12px;
+  flex-wrap: wrap;
+}
+
+.loading {
+  display: flex;
+  justify-content: center;
+  padding: 48px 0;
+}

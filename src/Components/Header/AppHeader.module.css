@@ -1,0 +1,194 @@
+.header {
+  background: #fff;
+  border-bottom: 1px solid #f0f0f0;
+  padding: 0 24px;
+}
+
+@media (min-width: 1024px) {
+  .header {
+    padding: 0 48px;
+  }
+}
+
+.inner {
+  margin: 0 auto;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  min-height: 56px;
+  flex-wrap: wrap;
+  gap: 12px;
+  padding: 12px 0;
+}
+
+@media (min-width: 1024px) {
+  .inner {
+    flex-wrap: nowrap;
+    padding: 0;
+    height: 56px;
+    gap: 0;
+  }
+}
+
+.inner__block {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  flex: 1;
+  justify-content: space-between;
+}
+
+@media (min-width: 1024px) {
+  .inner__block {
+    gap: 50px;
+    flex: 1;
+    justify-content: flex-start;
+  }
+}
+
+.logo {
+  font-size: 18px;
+  font-weight: 600;
+  color: #262626;
+  text-decoration: none;
+}
+
+@media (min-width: 1024px) {
+  .logo {
+    font-size: 20px;
+  }
+}
+
+/* Бургер-кнопка: только на мобильных */
+.burgerBtn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 40px;
+  height: 40px;
+  padding: 0;
+  margin: 0;
+  background: none;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  font-size: 20px;
+  color: #262626;
+}
+
+.burgerBtn:hover {
+  background: #f5f5f5;
+  color: #262626;
+}
+
+@media (min-width: 1024px) {
+  .burgerBtn {
+    display: none;
+  }
+}
+
+.nav {
+  display: none;
+}
+
+@media (min-width: 1024px) {
+  .nav {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 24px;
+  }
+}
+
+.link,
+.linkActive {
+  color: #595959;
+  text-decoration: none;
+  font-size: 13px;
+}
+
+@media (min-width: 1024px) {
+  .link,
+  .linkActive {
+    font-size: 14px;
+  }
+}
+
+.link:hover,
+.linkActive {
+  color: #262626;
+}
+
+.linkActive {
+  font-weight: 500;
+}
+
+.actions {
+  display: none;
+}
+
+@media (min-width: 1024px) {
+  .actions {
+    display: flex;
+    gap: 12px;
+    flex-shrink: 0;
+  }
+
+  .actions .ant-btn {
+    font-size: 14px;
+    padding: 4px 15px;
+  }
+}
+
+/* Содержимое бургер-меню */
+.menuContent {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+  padding: 24px 0;
+}
+
+.menuTitle {
+  font-size: 20px;
+  font-weight: 600;
+  color: #262626;
+  padding: 0 24px;
+}
+
+.menuNav {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.menuLink,
+.menuLinkActive {
+  display: block;
+  padding: 12px 24px;
+  color: #595959;
+  text-decoration: none;
+  font-size: 16px;
+  transition: background 0.2s, color 0.2s;
+}
+
+.menuLink:hover {
+  background: #f5f5f5;
+  color: #262626;
+}
+
+.menuLinkActive {
+  color: #262626;
+  font-weight: 500;
+  background: #fafafa;
+}
+
+.menuActions {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  padding: 0 24px;
+  margin-top: auto;
+}
+
+.menuCabinetBtn {
+  margin-bottom: 4px;
+}

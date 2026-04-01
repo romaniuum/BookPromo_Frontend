@@ -1,0 +1,285 @@
+.page {
+  padding: 16px 16px 32px;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+@media (min-width: 768px) {
+  .page {
+    padding: 24px 24px 48px;
+  }
+}
+
+.loading {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 280px;
+}
+
+.layout {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 24px;
+  align-items: start;
+}
+
+@media (min-width: 768px) {
+  .layout {
+    grid-template-columns: 160px 1fr;
+    grid-template-rows: auto auto;
+    gap: 28px;
+  }
+}
+
+@media (min-width: 1024px) {
+  .layout {
+    grid-template-columns: 200px 1fr 240px;
+    grid-template-rows: auto;
+    gap: 32px;
+  }
+}
+
+.sidebarLeft {
+  display: flex;
+  justify-content: center;
+  order: -1;
+}
+
+@media (min-width: 768px) {
+  .sidebarLeft {
+    justify-content: flex-start;
+    order: unset;
+    grid-row: span 2;
+    position: sticky;
+    top: 24px;
+  }
+}
+
+@media (min-width: 1024px) {
+  .sidebarLeft {
+    grid-row: span 1;
+  }
+}
+
+.sidebarRight {
+  min-width: 0;
+}
+
+@media (min-width: 768px) and (max-width: 1023px) {
+  .sidebarRight {
+    grid-column: 2;
+    grid-row: 2;
+  }
+}
+
+.coverWrap {
+  width: 140px;
+  margin: 0 auto;
+  border-radius: 8px;
+  overflow: hidden;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+}
+
+@media (min-width: 768px) {
+  .coverWrap {
+    width: 160px;
+    margin: 0;
+  }
+}
+
+@media (min-width: 1024px) {
+  .coverWrap {
+    width: 200px;
+  }
+}
+
+.cover {
+  width: 100%;
+  aspect-ratio: 2/3;
+  background: #f5f5f5;
+  object-fit: cover;
+  display: block;
+}
+
+.coverPlaceholder {
+  width: 100%;
+  aspect-ratio: 2/3;
+  background: #f0f0f0;
+}
+
+.main {
+  min-width: 0;
+}
+
+.contentTabs {
+  display: flex;
+  gap: 0;
+  margin-bottom: 20px;
+  border-bottom: 1px solid #f0f0f0;
+}
+
+.contentTab {
+  padding: 8px 0;
+  margin-right: 24px;
+  font-size: 14px;
+  color: #8c8c8c;
+  background: none;
+  border: none;
+  cursor: pointer;
+  border-bottom: 2px solid transparent;
+  margin-bottom: -1px;
+}
+
+.contentTab:hover {
+  color: #262626;
+}
+
+.contentTabActive {
+  color: #262626;
+  font-weight: 500;
+  border-bottom-color: #262626;
+}
+
+.pageTitle {
+  font-size: 14px;
+  color: #8c8c8c;
+  margin: 0 0 8px !important;
+  font-weight: 400;
+}
+
+.bookTitle {
+  font-size: 20px;
+  font-weight: 600;
+  color: #262626;
+  margin: 0 0 4px !important;
+  line-height: 1.3;
+}
+
+@media (min-width: 768px) {
+  .bookTitle {
+    font-size: 24px;
+  }
+}
+
+.author {
+  color: #8c8c8c;
+  margin: 0 0 16px !important;
+  font-size: 14px;
+}
+
+@media (min-width: 768px) {
+  .author {
+    margin: 0 0 20px !important;
+  }
+}
+
+.actions {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 20px;
+  flex-wrap: wrap;
+}
+
+@media (min-width: 768px) {
+  .actions {
+    gap: 12px;
+    margin-bottom: 24px;
+  }
+}
+
+.actions .readBtn {
+  padding: 8px 16px;
+  height: auto;
+  font-weight: 500;
+  font-size: 14px;
+}
+
+@media (min-width: 768px) {
+  .actions .readBtn {
+    padding: 8px 20px;
+    font-size: 16px;
+  }
+}
+
+.actions .secondaryBtn {
+  border-color: #d9d9d9;
+  color: #262626;
+  font-size: 14px;
+}
+
+@media (max-width: 480px) {
+  .actions {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .actions .readBtn,
+  .actions .secondaryBtn {
+    width: 100%;
+    justify-content: center;
+  }
+}
+
+.moreBtn {
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  padding: 0;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border: 1px solid #d9d9d9;
+  color: #595959;
+  background: #fff;
+  cursor: pointer;
+}
+
+.moreBtn:hover {
+  border-color: #bfbfbf;
+  color: #262626;
+}
+
+.navTabs {
+  display: flex;
+  gap: 0;
+  margin-bottom: 16px;
+  border-bottom: 1px solid #f0f0f0;
+}
+
+.navTab {
+  padding: 10px 0;
+  margin-right: 24px;
+  font-size: 14px;
+  color: #8c8c8c;
+  background: none;
+  border: none;
+  cursor: pointer;
+  border-bottom: 2px solid transparent;
+  margin-bottom: -1px;
+}
+
+.navTab:hover {
+  color: #262626;
+}
+
+.navTabActive {
+  color: #262626;
+  font-weight: 500;
+  border-bottom-color: #262626;
+}
+
+.navTabCount {
+  margin-left: 4px;
+  font-weight: 400;
+  color: #8c8c8c;
+}
+
+.descBlock {
+  color: #595959;
+  font-size: 14px;
+  line-height: 1.6;
+  margin: 0;
+  white-space: pre-wrap;
+}

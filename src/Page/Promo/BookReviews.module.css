@@ -1,0 +1,257 @@
+.wrapper {
+  margin-top: 0;
+}
+
+.loading {
+  display: flex;
+  justify-content: center;
+  padding: 32px 0;
+}
+
+.reviewCard {
+  padding: 20px 0;
+  border-bottom: 1px solid #f0f0f0;
+}
+
+.reviewCard:last-child {
+  border-bottom: none;
+}
+
+.reviewHead {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 12px;
+}
+
+.avatar {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  flex-shrink: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #fff;
+  font-size: 16px;
+  font-weight: 600;
+}
+
+.reviewMeta {
+  flex: 1;
+  min-width: 0;
+}
+
+.reviewAuthorRow {
+  display: flex;
+  align-items: baseline;
+  gap: 6px;
+  flex-wrap: wrap;
+}
+
+.reviewAuthor {
+  font-size: 15px;
+  font-weight: 600;
+  color: #262626;
+  margin: 0 !important;
+}
+
+.reviewSharesLabel {
+  font-size: 14px;
+  color: #8c8c8c;
+  font-weight: 400;
+}
+
+.reviewTime {
+  font-size: 12px;
+  color: #8c8c8c;
+  margin: 4px 0 0 !important;
+}
+
+.reviewStars {
+  font-size: 14px;
+}
+
+.reviewStars .ant-rate-star {
+  margin-inline-end: 2px;
+}
+
+.inlineEdit {
+  margin-top: 8px;
+  margin-bottom: 12px;
+}
+
+.inlineEditTextarea {
+  margin-bottom: 10px;
+  height: 100px !important;
+  min-height: 100px !important;
+  resize: none;
+}
+
+.inlineEditCheckbox {
+  display: block;
+  margin-bottom: 12px;
+  font-size: 13px;
+}
+
+.inlineEditActions {
+  display: flex;
+  gap: 8px;
+}
+
+.inlineEditActions .ant-btn {
+  cursor: pointer;
+}
+
+.saveBtn {
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.12);
+}
+
+.saveBtn:not(:disabled):hover {
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.18);
+}
+
+.btnWithCursor {
+  cursor: pointer;
+}
+
+.editForm {
+  padding: 8px 0;
+}
+
+.editRatingRow {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 12px;
+}
+
+.editRatingRow .ant-rate {
+  font-size: 20px;
+}
+
+.reviewComment {
+  margin: 0 0 10px;
+  color: #262626;
+  font-size: 14px;
+  line-height: 1.6;
+  white-space: pre-wrap;
+}
+
+.reviewCommentPlaceholder {
+  margin: 0 0 10px;
+  color: #8c8c8c;
+  font-size: 14px;
+  font-style: italic;
+}
+
+.reviewEngagement {
+  margin-bottom: 10px;
+  font-size: 12px;
+  color: #8c8c8c;
+}
+
+.reviewEngagementDot {
+  margin: 0 6px;
+  color: #bfbfbf;
+}
+
+.reviewCommentsCount {
+  color: #8c8c8c;
+}
+
+.reviewActions {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 4px;
+}
+
+.reviewAction {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  font-size: 12px;
+  color: #595959;
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 6px 8px;
+  border-radius: 4px;
+}
+
+.reviewAction:hover {
+  color: #262626;
+  background: #f5f5f5;
+}
+
+.reviewActionLiked {
+  color: #ff4d4f;
+}
+
+.reviewActionLiked .actionIcon {
+  color: #ff4d4f;
+}
+
+.actionIcon {
+  margin-right: 2px;
+  font-size: 14px;
+}
+
+.reviewActionMore {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 32px;
+  height: 28px;
+  padding: 0;
+  font-size: 16px;
+  color: #595959;
+  background: none;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+.reviewActionMore:hover {
+  color: #262626;
+  background: #f5f5f5;
+}
+
+.reviewLikes {
+  font-size: 12px;
+  color: #8c8c8c;
+}
+
+.reviewOwnActions {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-left: auto;
+}
+
+.reviewOwnBtn,
+.reviewOwnBtnDanger {
+  font-size: 12px !important;
+  height: 28px !important;
+  padding: 0 10px !important;
+  cursor: pointer;
+}
+
+.reviewOwnBtn .anticon,
+.reviewOwnBtnDanger .anticon {
+  margin-inline-end: 4px;
+}
+
+.empty {
+  padding: 32px 0;
+  text-align: center;
+  color: #8c8c8c;
+  font-size: 14px;
+}
+
+.error {
+  color: #8c8c8c;
+  font-size: 14px;
+}
