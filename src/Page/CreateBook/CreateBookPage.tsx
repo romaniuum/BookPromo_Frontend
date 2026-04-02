@@ -39,7 +39,7 @@ const { TextArea } = Input;
 type CoverSource = 'upload' | 'ai' | 'template';
 
 export function CreateBookPage() {
-  const { token, updateUser } = useAuth();
+  const { token, updateUser, user } = useAuth();
   const navigate = useNavigate();
   const [form] = Form.useForm();
   const [coverSource, setCoverSource] = useState<CoverSource>('upload');
@@ -180,6 +180,12 @@ export function CreateBookPage() {
       const vals = form.getFieldsValue();
       const blob = await generateCoverFromTemplate(template, {
         title: (vals.title as string)?.trim() || 'Без названия',
+        authorName: user?.name || undefined,
+        genre: (vals.genre as string)?.trim() || undefined,
+        publisherName: (vals.publisherName as string)?.trim() || undefined,
+        year: parsePublicationYear(vals.publication_year),
+        isbn: (vals.isbn as string)?.trim() || undefined,
+        showCopyright: true,
       });
       if (templateCoverPreviewUrl) URL.revokeObjectURL(templateCoverPreviewUrl);
       setTemplateCoverBlob(blob);
@@ -244,6 +250,14 @@ export function CreateBookPage() {
 
         <Form.Item name="publication_year" label="Год издания">
           <Input type="number" placeholder="Например: 2024" min={1000} max={2100} />
+        </Form.Item>
+
+        <Form.Item name="publisherName" label="Издательство">
+          <Input placeholder="Название издательства (необязательно)" />
+        </Form.Item>
+
+        <Form.Item name="isbn" label="ISBN">
+          <Input placeholder="Например: 978-5-00-000000-0 (необязательно)" />
         </Form.Item>
 
         <Form.Item label="Обложка">
@@ -320,11 +334,17 @@ export function CreateBookPage() {
                   )}
                 </Space>
                 {templateCoverPreviewUrl && !templateGenerating && (
-                  <img
-                    src={templateCoverPreviewUrl}
-                    alt="Предпросмотр обложки по шаблону"
-                    className={styles.aiPreview}
-                  />
+                  <>
+                    <img
+                      src={templateCoverPreviewUrl}
+                      alt="Предпросмотр обложки по шаблону"
+                      className={styles.aiPreview}
+                    />
+                    <div style={{ fontSize: 11, color: '#8c8c8c', marginTop: 8, lineHeight: 1.4 }}>
+                      На обложку будут добавлены: автор, название, жанр, год,
+                      издательство, ISBN и знак © согласно ГОСТ 7.84–2002
+                    </div>
+                  </>
                 )}
                 <CoverTemplateSelector
                   open={templateSelectorOpen}

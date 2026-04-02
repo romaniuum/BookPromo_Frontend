@@ -83,6 +83,22 @@ export function CoverTemplateSelector({ open, onClose, onSelect }: CoverTemplate
                   <div className={styles.cardGenre} style={{ color: template.colors.text }}>
                     {template.genre}
                   </div>
+                  <div
+                    style={{
+                      display: 'inline-block',
+                      marginTop: 6,
+                      padding: '1px 5px',
+                      fontSize: 9,
+                      fontWeight: 600,
+                      letterSpacing: '0.04em',
+                      borderRadius: 3,
+                      background: 'rgba(255,255,255,0.25)',
+                      color: template.colors.text,
+                      textTransform: 'uppercase',
+                    }}
+                  >
+                    гост
+                  </div>
                 </div>
               </div>
             </div>
