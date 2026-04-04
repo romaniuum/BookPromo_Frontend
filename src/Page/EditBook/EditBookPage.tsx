@@ -31,6 +31,7 @@ import {
 } from '../../Api/books';
 import { GostResultsDisplay } from '../../Components/GostResults/GostResultsDisplay';
 import { CoverTemplateSelector } from '../../Components/CoverTemplates/CoverTemplateSelector';
+import { CoverEditor } from '../../Components/CoverEditor/CoverEditor';
 import { generateCoverFromTemplate } from '../../Utils/coverGenerator';
 import type { CoverTemplate } from '../../Constants/coverTemplates';
 import { parsePublicationYear } from '../../Utils/form';
@@ -53,6 +54,8 @@ export function EditBookPage() {
   const [coverSource, setCoverSource] = useState<CoverSource>('keep');
   const [coverFileList, setCoverFileList] = useState<UploadFile[]>([]);
   const [aiCoverUrl, setAiCoverUrl] = useState<string | null>(null);
+  const [aiCoverBlob, setAiCoverBlob] = useState<Blob | null>(null);
+  const [aiCoverEditorOpen, setAiCoverEditorOpen] = useState(false);
   const [aiGenerating, setAiGenerating] = useState(false);
   const [templateSelectorOpen, setTemplateSelectorOpen] = useState(false);
   const [selectedTemplate, setSelectedTemplate] = useState<CoverTemplate | null>(null);
@@ -209,9 +212,26 @@ export function EditBookPage() {
 
     setAiGenerating(true);
     try {
-      const url = await generateCover(payload, token);
+      const { url, base64 } = await generateCover(payload, token);
+
+      let blob: Blob | null = null;
+      if (base64) {
+        try {
+          const byteString = atob(base64);
+          const ab = new ArrayBuffer(byteString.length);
+          const ia = new Uint8Array(ab);
+          for (let i = 0; i < byteString.length; i++) {
+            ia[i] = byteString.charCodeAt(i);
+          }
+          blob = new Blob([ab], { type: 'image/jpeg' });
+        } catch {
+          blob = null;
+        }
+      }
+
       setAiCoverUrl(url);
-      message.success('Обложка сгенерирована');
+      setAiCoverBlob(blob);
+      setAiCoverEditorOpen(true);
     } catch (e) {
       message.error(e instanceof Error ? e.message : 'Ошибка генерации обложки');
     } finally {
@@ -335,12 +355,21 @@ export function EditBookPage() {
                     Используются название, жанр и аннотация из формы
                   </span>
                 </Space>
-                {aiCoverUrl && (
-                  <img
-                    src={getImageUrl(aiCoverUrl)}
-                    alt="Сгенерированная обложка"
-                    className={styles.aiPreview}
-                  />
+                {aiCoverUrl && !aiGenerating && (
+                  <>
+                    <img
+                      src={getImageUrl(aiCoverUrl)}
+                      alt="Сгенерированная обложка"
+                      className={styles.aiPreview}
+                    />
+                    <Button
+                      htmlType="button"
+                      style={{ marginTop: 8 }}
+                      onClick={() => setAiCoverEditorOpen(true)}
+                    >
+                      Открыть редактор обложки
+                    </Button>
+                  </>
                 )}
               </div>
             )}
@@ -455,6 +484,47 @@ export function EditBookPage() {
           </Space>
         </Form.Item>
       </Form>
+
+      {aiCoverEditorOpen && aiCoverUrl && (
+        <CoverEditor
+          open={aiCoverEditorOpen}
+          imageUrl={getImageUrl(aiCoverUrl)}
+          imageBlob={aiCoverBlob}
+          initialData={{
+            title: form.getFieldValue('title') || '',
+            author: user?.name || '',
+            genre: form.getFieldValue('genre') || '',
+            year: String(form.getFieldValue('publication_year') || ''),
+            publisher: form.getFieldValue('publisherName') || '',
+            isbn: form.getFieldValue('isbn') || '',
+          }}
+          onSave={(blob: Blob) => {
+            const file = new File([blob], 'ai-cover.jpg', { type: 'image/jpeg' });
+            const objectUrl = URL.createObjectURL(blob);
+            setCoverFileList([
+              {
+                uid: '-ai',
+                name: 'ai-cover.jpg',
+                status: 'done',
+                originFileObj: file as File & { uid: string },
+              } as UploadFile,
+            ]);
+            setCoverSource('upload');
+            setAiCoverUrl(objectUrl);
+            setAiCoverEditorOpen(false);
+            message.success('Обложка сохранена');
+          }}
+          onRegenerate={() => {
+            setAiCoverEditorOpen(false);
+            setAiCoverUrl(null);
+            setAiCoverBlob(null);
+            handleGenerateCover();
+          }}
+          onCancel={() => {
+            setAiCoverEditorOpen(false);
+          }}
+        />
+      )}
 
       <Modal
         title="Результаты проверки по ГОСТ"

@@ -1,0 +1,84 @@
+.editorBody {
+  display: flex;
+  gap: 24px;
+  align-items: flex-start;
+}
+
+.canvasWrap {
+  flex: 0 0 auto;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  position: relative;
+}
+
+.canvasLoadingOverlay {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: rgba(0, 0, 0, 0.4);
+  color: #fff;
+  font-size: 14px;
+  z-index: 2;
+  border-radius: 4px;
+}
+
+.canvas {
+  width: 300px;
+  height: 450px;
+  border: 1px solid #d9d9d9;
+  border-radius: 4px;
+  display: block;
+}
+
+.settingsPanel {
+  flex: 1 1 auto;
+  overflow-y: auto;
+  max-height: 480px;
+}
+
+.blockSection {
+  margin-bottom: 16px;
+  padding-bottom: 12px;
+  border-bottom: 1px solid #f0f0f0;
+}
+
+.blockSection:last-child {
+  border-bottom: none;
+  margin-bottom: 0;
+}
+
+.blockHeader {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 8px;
+}
+
+.blockLabel {
+  font-weight: 600;
+  font-size: 13px;
+}
+
+.requiredTag {
+  font-size: 11px;
+  color: #8c8c8c;
+}
+
+.blockRow {
+  display: flex;
+  gap: 8px;
+  align-items: center;
+  margin-bottom: 6px;
+}
+
+.colorInput {
+  width: 36px;
+  height: 28px;
+  padding: 0 2px;
+  border: 1px solid #d9d9d9;
+  border-radius: 4px;
+  cursor: pointer;
+}

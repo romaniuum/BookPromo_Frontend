@@ -156,16 +156,19 @@ export type GenerateCoverPayload = {
   publication_year?: number;
 };
 
-/** Генерация обложки через YandexART. Возвращает URL для поля cover_image. */
+/** Генерация обложки через YandexART. Возвращает URL и base64 для canvas. */
 export async function generateCover(
   payload: GenerateCoverPayload,
   token: string
-): Promise<string> {
-  const data = await request<{ url: string }>('/api/v1/generate-cover', token, {
+): Promise<{ url: string; base64: string | null }> {
+  const data = await request<{ url: string; base64?: string }>('/api/v1/generate-cover', token, {
     method: 'POST',
     body: JSON.stringify(payload),
   });
-  return (data as { url?: string }).url ?? '';
+  return {
+    url: (data as { url?: string }).url ?? '',
+    base64: (data as { base64?: string }).base64 ?? null,
+  };
 }
 
 /** Результат проверки по ГОСТ (при ошибке загрузки). */
