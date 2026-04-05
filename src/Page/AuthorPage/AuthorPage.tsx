@@ -218,6 +218,44 @@ export function AuthorPage() {
         </div>
       </Card>
 
+      {booksWithStats.length > 0 && (
+        <Card className={styles.statsCard}>
+          <Title level={5} className={styles.statsTitle}>
+            Сводная статистика
+          </Title>
+          <div className={styles.statsRow}>
+            <div className={styles.statItem}>
+              <span className={styles.statValue}>{booksWithStats.length}</span>
+              <span className={styles.statLabel}>Книг</span>
+            </div>
+            <div className={styles.statItem}>
+              <span className={styles.statValue}>{allReviews.length}</span>
+              <span className={styles.statLabel}>Отзывов</span>
+            </div>
+            <div className={styles.statItem}>
+              <span className={styles.statValue}>
+                {allReviews.length > 0
+                  ? (allReviews.reduce((sum, r) => sum + r.rating, 0) / allReviews.length).toFixed(1)
+                  : '—'}
+              </span>
+              <span className={styles.statLabel}>Средний рейтинг</span>
+            </div>
+            <div className={styles.statItem}>
+              <span className={styles.statValue}>
+                {allReviews.filter(r => r.rating >= 4).length}
+              </span>
+              <span className={styles.statLabel}>Положительных</span>
+            </div>
+            <div className={styles.statItem}>
+              <span className={styles.statValue}>
+                {allReviews.filter(r => r.rating <= 2).length}
+              </span>
+              <span className={styles.statLabel}>Критических</span>
+            </div>
+          </div>
+        </Card>
+      )}
+
       {isAuthor && (
         <>
           <div className={styles.sectionHead}>
@@ -302,34 +340,134 @@ export function AuthorPage() {
             </div>
           )}
 
-          {booksWithStats.length > 0 && allReviews.length > 0 && (
+          {booksWithStats.length > 0 && booksWithStats.some(b => b.reviews.length > 0) && (
             <>
               <Title level={4} className={styles.sectionTitleReviews}>
-                Отзывы по вашим книгам
+                Отчёт по отзывам
               </Title>
-              <Card className={styles.reviewsCard}>
-                <ul className={styles.reviewsList}>
-                  {allReviews.slice(0, 20).map((r) => (
-                    <li key={r.id} className={styles.reviewItem}>
-                      <div className={styles.reviewHead}>
-                        <span className={styles.reviewBook}>{r.bookTitle}</span>
-                        <span className={styles.reviewMeta}>
-                          {r.is_anonymous ? 'Аноним' : r.reader_name} · {r.rating} ★
-                        </span>
+              {booksWithStats
+                .filter(b => b.reviews.length > 0)
+                .map(book => {
+                  const avgRating = book.rating?.average_rating ?? 0;
+                  const positive = book.reviews.filter(r => r.rating >= 4);
+                  const neutral = book.reviews.filter(r => r.rating === 3);
+                  const critical = book.reviews.filter(r => r.rating <= 2);
+
+                  return (
+                    <Card key={book.id} className={styles.reportCard}>
+                      <div className={styles.reportHeader}>
+                        <Title level={5} className={styles.reportBookTitle}>
+                          {book.title}
+                        </Title>
+                        <div className={styles.reportRating}>
+                          <span className={styles.reportRatingValue}>
+                            {avgRating.toFixed(1)} ★
+                          </span>
+                          <Text type="secondary">
+                            {book.reviews.length} отзывов
+                          </Text>
+                        </div>
                       </div>
-                      {r.comment && (
-                        <p className={styles.reviewComment}>
-                          {r.comment.slice(0, 200)}
-                          {r.comment.length > 200 ? '…' : ''}
-                        </p>
+
+                      <div className={styles.ratingDistribution}>
+                        <div className={styles.distRow}>
+                          <span className={styles.distLabel}>Положительные (4-5 ★)</span>
+                          <div className={styles.distBar}>
+                            <div
+                              className={styles.distBarFill}
+                              style={{
+                                width: book.reviews.length
+                                  ? `${(positive.length / book.reviews.length) * 100}%`
+                                  : '0%',
+                                background: '#52c41a',
+                              }}
+                            />
+                          </div>
+                          <span className={styles.distCount}>{positive.length}</span>
+                        </div>
+                        <div className={styles.distRow}>
+                          <span className={styles.distLabel}>Нейтральные (3 ★)</span>
+                          <div className={styles.distBar}>
+                            <div
+                              className={styles.distBarFill}
+                              style={{
+                                width: book.reviews.length
+                                  ? `${(neutral.length / book.reviews.length) * 100}%`
+                                  : '0%',
+                                background: '#faad14',
+                              }}
+                            />
+                          </div>
+                          <span className={styles.distCount}>{neutral.length}</span>
+                        </div>
+                        <div className={styles.distRow}>
+                          <span className={styles.distLabel}>Критические (1-2 ★)</span>
+                          <div className={styles.distBar}>
+                            <div
+                              className={styles.distBarFill}
+                              style={{
+                                width: book.reviews.length
+                                  ? `${(critical.length / book.reviews.length) * 100}%`
+                                  : '0%',
+                                background: '#ff4d4f',
+                              }}
+                            />
+                          </div>
+                          <span className={styles.distCount}>{critical.length}</span>
+                        </div>
+                      </div>
+
+                      {critical.length > 0 && (
+                        <div className={styles.suggestions}>
+                          <Text strong>Замечания читателей:</Text>
+                          <ul className={styles.suggestionsList}>
+                            {critical
+                              .filter(r => r.comment)
+                              .slice(0, 3)
+                              .map(r => (
+                                <li key={r.id} className={styles.suggestionItem}>
+                                  <span className={styles.suggestionRating}>
+                                    {r.rating} ★
+                                  </span>
+                                  <span className={styles.suggestionText}>
+                                    {r.comment!.slice(0, 150)}
+                                    {r.comment!.length > 150 ? '…' : ''}
+                                  </span>
+                                </li>
+                              ))}
+                          </ul>
+                        </div>
                       )}
-                      <Text type="secondary" className={styles.reviewDate}>
-                        {formatDate(r.created_at)}
-                      </Text>
-                    </li>
-                  ))}
-                </ul>
-              </Card>
+
+                      {positive.length > 0 && positive.some(r => r.comment) && (
+                        <div className={styles.bestReview}>
+                          <Text strong>Лучший отзыв:</Text>
+                          <p className={styles.bestReviewText}>
+                            «{positive.find(r => r.comment)!.comment!.slice(0, 200)}»
+                          </p>
+                        </div>
+                      )}
+
+                      <div className={styles.reportConclusion}>
+                        {avgRating >= 4 && (
+                          <Text type="success">
+                            ✓ Книга хорошо принята читателями
+                          </Text>
+                        )}
+                        {avgRating >= 3 && avgRating < 4 && (
+                          <Text type="warning">
+                            ⚠ Смешанные отзывы — стоит обратить внимание на замечания
+                          </Text>
+                        )}
+                        {avgRating < 3 && avgRating > 0 && (
+                          <Text type="danger">
+                            ✗ Книга требует доработки согласно отзывам читателей
+                          </Text>
+                        )}
+                      </div>
+                    </Card>
+                  );
+                })}
             </>
           )}
         </>

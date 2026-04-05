@@ -151,7 +151,7 @@ export function PromoPage() {
 
         <main className={styles.main}>
           <h1 className={styles.bookTitle}>{book.title}</h1>
-          <p className={styles.author}>{book.genre || 'Автор не указан'}</p>
+          <p className={styles.author}>{book.author_name || 'Автор не указан'}</p>
 
           <div className={styles.actions}>
             {book.pdf_url ? (
@@ -180,6 +180,45 @@ export function PromoPage() {
             >
               {inMyBooks ? 'Убрать из моих книг' : 'Добавить в мои книги'}
             </Button>
+            {book.cover_image && (
+              <a
+                href={getImageUrl(book.cover_image)}
+                download
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                <Button size="large" className={styles.secondaryBtn}>
+                  Скачать обложку
+                </Button>
+              </a>
+            )}
+          </div>
+
+          <div className={styles.bookMeta}>
+            {book.author_name && (
+              <div className={styles.metaRow}>
+                <span className={styles.metaLabel}>Автор:</span>
+                <span className={styles.metaValue}>{book.author_name}</span>
+              </div>
+            )}
+            {book.genre && (
+              <div className={styles.metaRow}>
+                <span className={styles.metaLabel}>Жанр:</span>
+                <span className={styles.metaValue}>{book.genre}</span>
+              </div>
+            )}
+            {book.publication_year && (
+              <div className={styles.metaRow}>
+                <span className={styles.metaLabel}>Год издания:</span>
+                <span className={styles.metaValue}>{book.publication_year}</span>
+              </div>
+            )}
+            {book.pdf_url && (
+              <div className={styles.metaRow}>
+                <span className={styles.metaLabel}>Формат:</span>
+                <span className={styles.metaValue}>PDF</span>
+              </div>
+            )}
           </div>
 
           <div className={styles.navTabs}>

@@ -16,6 +16,7 @@ export type Book = {
   updated_at: string;
   published_at?: string | null;
   publication_year?: number | null;
+  author_name?: string;
 };
 
 async function request<T>(
