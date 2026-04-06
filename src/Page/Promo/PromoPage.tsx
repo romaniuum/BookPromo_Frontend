@@ -12,7 +12,7 @@ import { RatingSidebar } from './RatingSidebar';
 import { CreateReviewForm } from './CreateReviewForm';
 import styles from './PromoPage.module.css';
 
-type Tab = 'reviews' | 'about';
+type Tab = 'reviews' | 'about' | 'share';
 
 export function PromoPage() {
   const { id } = useParams<{ id: string }>();
@@ -237,14 +237,21 @@ export function PromoPage() {
               Впечатления
               <span className={styles.navTabCount}>{reviews.length}</span>
             </button>
-
+            <button
+              type="button"
+              className={`${styles.navTab} ${navTab === 'share' ? styles.navTabActive : ''}`}
+              onClick={() => setNavTab('share')}
+            >
+              Поделиться
+            </button>
           </div>
 
-          {navTab === 'about' ? (
+          {navTab === 'about' && (
             <p className={styles.descBlock}>
               {book.description || 'Нет описания.'}
             </p>
-          ) : (
+          )}
+          {navTab === 'reviews' && (
             <>
               <CreateReviewForm
                 bookId={book.id}
@@ -262,6 +269,84 @@ export function PromoPage() {
                 />
               </div>
             </>
+          )}
+          {navTab === 'share' && (
+            <div className={styles.shareSection}>
+              <p className={styles.shareHint}>
+                Так будет выглядеть карточка книги при публикации в социальных сетях
+              </p>
+
+              {/* VK превью */}
+              <div className={styles.previewBlock}>
+                <div className={styles.previewLabel}>
+                  <span className={styles.previewLabelVk}>VK</span>
+                  Превью для ВКонтакте
+                </div>
+                <div className={styles.vkCard}>
+                  <div className={styles.vkImageWrap}>
+                    {book.cover_image ? (
+                      <img
+                        src={getImageUrl(book.cover_image)}
+                        alt=""
+                        className={styles.vkImage}
+                      />
+                    ) : (
+                      <div className={styles.vkImagePlaceholder} />
+                    )}
+                  </div>
+                  <div className={styles.vkContent}>
+                    <div className={styles.vkSite}>bookpromo.ru</div>
+                    <div className={styles.vkTitle}>{book.title}</div>
+                    <div className={styles.vkDescription}>
+                      {book.description
+                        ? book.description.slice(0, 120) + (book.description.length > 120 ? '…' : '')
+                        : 'Откройте для себя эту книгу на BookPromo'}
+                    </div>
+                    {book.author_name && (
+                      <div className={styles.vkAuthor}>Автор: {book.author_name}</div>
+                    )}
+                  </div>
+                </div>
+              </div>
+
+              {/* Telegram превью */}
+              <div className={styles.previewBlock}>
+                <div className={styles.previewLabel}>
+                  <span className={styles.previewLabelTg}>TG</span>
+                  Превью для Telegram
+                </div>
+                <div className={styles.tgCard}>
+                  <div className={styles.tgAccent} />
+                  <div className={styles.tgBody}>
+                    {book.cover_image && (
+                      <img
+                        src={getImageUrl(book.cover_image)}
+                        alt=""
+                        className={styles.tgImage}
+                      />
+                    )}
+                    <div className={styles.tgContent}>
+                      <div className={styles.tgSite}>bookpromo.ru</div>
+                      <div className={styles.tgTitle}>{book.title}</div>
+                      <div className={styles.tgDescription}>
+                        {book.description
+                          ? book.description.slice(0, 200) + (book.description.length > 200 ? '…' : '')
+                          : 'Откройте для себя эту книгу на BookPromo'}
+                      </div>
+                      {book.author_name && (
+                        <div className={styles.tgAuthor}>✍️ {book.author_name}</div>
+                      )}
+                      {book.genre && (
+                        <div className={styles.tgGenre}>📚 {book.genre}</div>
+                      )}
+                      {book.publication_year && (
+                        <div className={styles.tgYear}>📅 {book.publication_year}</div>
+                      )}
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
           )}
         </main>
 
