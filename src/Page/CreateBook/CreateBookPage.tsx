@@ -12,6 +12,7 @@ import {
   Space,
   Alert,
   Empty,
+  Checkbox,
 } from 'antd';
 import type { UploadFile } from 'antd';
 import { ROUTES, getImageUrl } from '../../Constants';
@@ -60,6 +61,7 @@ export function CreateBookPage() {
   const [gostResults, setGostResults] = useState<GostResult[] | null>(null);
   const [pendingPayload, setPendingPayload] = useState<CreateBookPayload | null>(null);
   const [publishing, setPublishing] = useState(false);
+  const [rightsConfirmed, setRightsConfirmed] = useState(false);
 
   const resetForm = () => {
     form.resetFields();
@@ -72,6 +74,7 @@ export function CreateBookPage() {
     setTemplateCoverBlob(null);
     if (templateCoverPreviewUrl) URL.revokeObjectURL(templateCoverPreviewUrl);
     setTemplateCoverPreviewUrl(null);
+    setRightsConfirmed(false);
   };
 
   const handleFinish = async (values: Record<string, unknown>) => {
@@ -432,6 +435,17 @@ export function CreateBookPage() {
           />
         ) : null}
 
+        <Form.Item>
+          <Checkbox
+            checked={rightsConfirmed}
+            onChange={(e) => setRightsConfirmed(e.target.checked)}
+          >
+            Подтверждаю, что являюсь правообладателем загружаемых материалов
+            (текста, обложки, иллюстраций) или имею законные основания для их
+            использования в соответствии с ГК РФ ч. 4
+          </Checkbox>
+        </Form.Item>
+
         <Form.Item className={styles.actions}>
           <Space>
             {showGostResults ? (
@@ -456,7 +470,7 @@ export function CreateBookPage() {
                   type="primary"
                   htmlType="submit"
                   loading={submitting}
-                  disabled={templateGenerating}
+                  disabled={templateGenerating || !rightsConfirmed}
                 >
                   Создать книгу
                 </Button>

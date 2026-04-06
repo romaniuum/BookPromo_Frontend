@@ -13,6 +13,7 @@ import {
   Spin,
   Alert,
   Modal,
+  Checkbox,
 } from 'antd';
 import type { UploadFile } from 'antd';
 import { ROUTES, getImageUrl } from '../../Constants';
@@ -69,6 +70,7 @@ export function EditBookPage() {
   const [gostResults, setGostResults] = useState<GostResult[] | null>(null);
   const [pendingPayload, setPendingPayload] = useState<UpdateBookPayload | null>(null);
   const [publishing, setPublishing] = useState(false);
+  const [rightsConfirmed, setRightsConfirmed] = useState(false);
 
   useEffect(() => {
     if (!token || !id) {
@@ -473,9 +475,20 @@ export function EditBookPage() {
           />
         )}
 
+        <Form.Item>
+          <Checkbox
+            checked={rightsConfirmed}
+            onChange={(e) => setRightsConfirmed(e.target.checked)}
+          >
+            Подтверждаю, что являюсь правообладателем загружаемых материалов
+            (текста, обложки, иллюстраций) или имею законные основания для их
+            использования в соответствии с ГК РФ ч. 4
+          </Checkbox>
+        </Form.Item>
+
         <Form.Item className={styles.actions}>
           <Space>
-            <Button type="primary" htmlType="submit" loading={submitting}>
+            <Button type="primary" htmlType="submit" loading={submitting} disabled={!rightsConfirmed}>
               Сохранить
             </Button>
             <Link to={ROUTES.AUTHOR}>
