@@ -86,6 +86,8 @@ export function EditBookPage() {
           description: b.description || undefined,
           publication_year: b.publication_year ?? undefined,
           content: b.content || undefined,
+          isbn: b.isbn || '',
+          publisherName: b.publisher || '',
         });
       })
       .catch((e) => {
@@ -135,6 +137,8 @@ export function EditBookPage() {
         pdf_url: pdfUrl,
         clear_pdf: clearPdf,
         publication_year,
+        isbn: (values.isbn as string)?.trim() || undefined,
+        publisher: (values.publisherName as string)?.trim() || undefined,
       };
 
       // Если загружен новый PDF и есть результаты ГОСТ — показываем модалку

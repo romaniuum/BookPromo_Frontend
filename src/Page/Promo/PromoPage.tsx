@@ -3,7 +3,7 @@ import { Link, useParams, useNavigate } from 'react-router-dom';
 import { Button, Spin, Alert } from 'antd';
 import { ROUTES, getReviewPath, getImageUrl } from '../../Constants';
 import { useAuth } from '../../Contexts/AuthContext';
-import { getBookByID, type Book } from '../../Api/books';
+import { getBookByID, generatePromoText, type Book, type PromoTextResult } from '../../Api/books';
 import { getCurrentUserReview } from '../../Utils/reviews';
 import { getReviewsByBookID, type BookRating, type Review } from '../../Api/reviews';
 import { getMyReadingList, addToReadingList, removeFromReadingList } from '../../Api/readingList';
@@ -26,6 +26,9 @@ export function PromoPage() {
   const [reviewsLoading, setReviewsLoading] = useState(false);
   const [navTab, setNavTab] = useState<Tab>('reviews');
   const [myBookIds, setMyBookIds] = useState<Set<string>>(new Set());
+  const [promoText, setPromoText] = useState<PromoTextResult | null>(null);
+  const [promoGenerating, setPromoGenerating] = useState(false);
+  const [promoError, setPromoError] = useState<string | null>(null);
 
   useEffect(() => {
     if (!id) {
@@ -75,6 +78,29 @@ export function PromoPage() {
       .then((books) => setMyBookIds(new Set(books.map((b) => b.id))))
       .catch(() => setMyBookIds(new Set()));
   }, [token, book?.id]);
+
+  const handleGeneratePromo = async () => {
+    if (!book || !token) return;
+    setPromoGenerating(true);
+    setPromoError(null);
+    try {
+      const result = await generatePromoText(
+        {
+          title: book.title,
+          author: book.author_name || undefined,
+          genre: book.genre || undefined,
+          description: book.description || undefined,
+          year: book.publication_year || undefined,
+        },
+        token
+      );
+      setPromoText(result);
+    } catch (e) {
+      setPromoError(e instanceof Error ? e.message : 'Ошибка генерации');
+    } finally {
+      setPromoGenerating(false);
+    }
+  };
 
   const inMyBooks = book ? myBookIds.has(book.id) : false;
   const toggleMyBook = () => {
@@ -213,6 +239,18 @@ export function PromoPage() {
                 <span className={styles.metaValue}>{book.publication_year}</span>
               </div>
             )}
+            {book.publisher && (
+              <div className={styles.metaRow}>
+                <span className={styles.metaLabel}>Издательство:</span>
+                <span className={styles.metaValue}>{book.publisher}</span>
+              </div>
+            )}
+            {book.isbn && (
+              <div className={styles.metaRow}>
+                <span className={styles.metaLabel}>ISBN:</span>
+                <span className={styles.metaValue}>{book.isbn}</span>
+              </div>
+            )}
             {book.pdf_url && (
               <div className={styles.metaRow}>
                 <span className={styles.metaLabel}>Формат:</span>
@@ -247,9 +285,73 @@ export function PromoPage() {
           </div>
 
           {navTab === 'about' && (
-            <p className={styles.descBlock}>
-              {book.description || 'Нет описания.'}
-            </p>
+            <div>
+              <p className={styles.descBlock}>
+                {book.description || 'Нет описания.'}
+              </p>
+
+              {token && user && book.author_id === user.id && (
+                <div className={styles.promoSection}>
+                  <div className={styles.promoHeader}>
+                    <span className={styles.promoTitle}>Промо-материалы</span>
+                    <Button
+                      size="small"
+                      type="primary"
+                      loading={promoGenerating}
+                      onClick={handleGeneratePromo}
+                    >
+                      {promoText ? 'Перегенерировать' : 'Сгенерировать промо-текст'}
+                    </Button>
+                  </div>
+
+                  {promoError && (
+                    <Alert
+                      type="error"
+                      message={promoError}
+                      showIcon
+                      style={{ marginBottom: 12 }}
+                    />
+                  )}
+
+                  {promoGenerating && (
+                    <div className={styles.promoLoading}>
+                      <Spin size="small" />
+                      <span>Генерация промо-текста…</span>
+                    </div>
+                  )}
+
+                  {promoText && !promoGenerating && (
+                    <div className={styles.promoResult}>
+                      <div className={styles.promoBlock}>
+                        <div className={styles.promoBlockLabel}>Рекламное описание</div>
+                        <p className={styles.promoAdText}>{promoText.ad_text}</p>
+                      </div>
+
+                      {promoText.theses.length > 0 && (
+                        <div className={styles.promoBlock}>
+                          <div className={styles.promoBlockLabel}>Ключевые тезисы</div>
+                          <ul className={styles.thesesList}>
+                            {promoText.theses.map((thesis, i) => (
+                              <li key={i} className={styles.thesisItem}>
+                                <span className={styles.thesisNum}>{i + 1}</span>
+                                {thesis}
+                              </li>
+                            ))}
+                          </ul>
+                        </div>
+                      )}
+                    </div>
+                  )}
+
+                  {!promoText && !promoGenerating && (
+                    <p className={styles.promoHint}>
+                      Нажмите кнопку чтобы сгенерировать рекламное описание и
+                      ключевые тезисы на основе данных книги
+                    </p>
+                  )}
+                </div>
+              )}
+            </div>
           )}
           {navTab === 'reviews' && (
             <>

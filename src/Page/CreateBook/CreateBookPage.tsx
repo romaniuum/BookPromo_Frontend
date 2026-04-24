@@ -115,6 +115,8 @@ export function CreateBookPage() {
         cover_image: coverImageUrl || undefined,
         pdf_url: pdfUrl || undefined,
         publication_year,
+        isbn: (values.isbn as string)?.trim() || undefined,
+        publisher: (values.publisherName as string)?.trim() || undefined,
       };
 
       if (pdfUrl && pdfGostResults?.length) {

@@ -17,6 +17,8 @@ export type Book = {
   published_at?: string | null;
   publication_year?: number | null;
   author_name?: string;
+  isbn?: string | null;
+  publisher?: string | null;
 };
 
 async function request<T>(
@@ -90,6 +92,8 @@ export type CreateBookPayload = {
   cover_image?: string;
   pdf_url?: string;
   publication_year?: number | null;
+  isbn?: string;
+  publisher?: string;
 };
 
 export type CreateBookResponse = {
@@ -118,6 +122,8 @@ export type UpdateBookPayload = {
   clear_pdf?: boolean;
   publication_year?: number | null;
   status?: string;
+  isbn?: string;
+  publisher?: string;
 };
 
 export async function updateBook(
@@ -275,4 +281,32 @@ export async function uploadCover(file: File, token: string): Promise<string> {
   }
   const data = text ? JSON.parse(text) : {};
   return (data as { url?: string }).url ?? '';
+}
+
+export type PromoTextPayload = {
+  title: string;
+  author?: string;
+  genre?: string;
+  description?: string;
+  year?: number;
+};
+
+export type PromoTextResult = {
+  ad_text: string;
+  theses: string[];
+};
+
+export async function generatePromoText(
+  payload: PromoTextPayload,
+  token: string
+): Promise<PromoTextResult> {
+  const data = await request<PromoTextResult>(
+    '/api/v1/generate-promo-text',
+    token,
+    {
+      method: 'POST',
+      body: JSON.stringify(payload),
+    }
+  );
+  return data;
 }

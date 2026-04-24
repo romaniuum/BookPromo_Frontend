@@ -508,3 +508,102 @@
   font-size: 12px;
   color: #555;
 }
+
+.promoSection {
+  margin-top: 24px;
+  padding: 16px;
+  background: #f9f9ff;
+  border-radius: 8px;
+  border: 1px solid #e8e8ff;
+}
+
+.promoHeader {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 12px;
+}
+
+.promoTitle {
+  font-size: 14px;
+  font-weight: 600;
+  color: #262626;
+}
+
+.promoLoading {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  color: #8c8c8c;
+  font-size: 13px;
+  padding: 8px 0;
+}
+
+.promoResult {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.promoBlock {
+  background: #fff;
+  border-radius: 6px;
+  padding: 12px;
+  border: 1px solid #f0f0f0;
+}
+
+.promoBlockLabel {
+  font-size: 11px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  color: #8c8c8c;
+  margin-bottom: 8px;
+}
+
+.promoAdText {
+  font-size: 14px;
+  line-height: 1.6;
+  color: #262626;
+  margin: 0;
+}
+
+.thesesList {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.thesisItem {
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+  font-size: 13px;
+  color: #434343;
+  line-height: 1.5;
+}
+
+.thesisNum {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 20px;
+  height: 20px;
+  background: #1677ff;
+  color: #fff;
+  border-radius: 50%;
+  font-size: 11px;
+  font-weight: 700;
+  flex-shrink: 0;
+  margin-top: 1px;
+}
+
+.promoHint {
+  font-size: 13px;
+  color: #8c8c8c;
+  margin: 0;
+  padding: 8px 0;
+}
